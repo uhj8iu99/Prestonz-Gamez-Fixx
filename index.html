@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MAXIMUM STEALTH CLOAKER -->
+  <title>Google Docs - My Drive</title>
+  <link rel="icon" href="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico">
+  <meta name="description" content="Google Docs">
+  <style>
+    :root { --p: #a855f7; --pg: #e0aaff; --bg: #0f001a; --card: #1f003a; --side: #180030; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:#fff; font-family:'Segoe UI',sans-serif; min-height:100vh; display:flex; overflow:hidden; }
+    .sidebar { width:280px; background:var(--side); border-right:3px solid var(--p); padding:2rem 1.5rem; position:fixed; height:100vh; z-index:10; display:flex; flex-direction:column; }
+    .logo { font-size:3rem; font-weight:900; text-align:center; background:linear-gradient(90deg,var(--p),var(--pg)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:3rem; }
+    .tab { padding:18px 22px; background:rgba(168,85,247,.15); border-left:5px solid transparent; border-radius:0 16px 16px 0; cursor:pointer; transition:all .4s; font-weight:600; margin:10px 0; }
+    .tab:hover { background:rgba(168,85,247,.35); transform:translateX(10px); }
+    .tab.active { background:var(--p); color:#000; border-left-color:#fff; font-weight:800; }
+    .main { margin-left:280px; padding:3rem; width:calc(100% - 280px); min-height:100vh; }
+    .search input { width:100%; max-width:600px; padding:1.2rem 1.8rem; border-radius:50px; border:3px solid var(--p); background:#000; color:#fff; font-size:1.2rem; margin:2rem auto; display:block; box-shadow:0 0 30px rgba(168,85,247,.4); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:2.5rem; margin-top:2rem; }
+    .game { background:var(--card); border-radius:20px; overflow:hidden; cursor:pointer; transition:all .5s; border:2px solid rgba(168,85,247,.3); box-shadow:0 10px 30px rgba(0,0,0,.5); }
+    .game:hover { transform:translateY(-15px) scale(1.05); box-shadow:0 25px 60px rgba(168,85,247,.7); border-color:var(--p); }
+    .game img { width:100%; height:200px; object-fit:cover; border-bottom:4px solid var(--p); }
+    .game h3 { padding:1.5rem; text-align:center; color:var(--pg); font-size:1.4rem; font-weight:700; }
+    #player { position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:999; display:none; }
+    #frame { width:100%; height:100%; border:none; }
+    .close { position:absolute; top:20px; left:20px; padding:16px 36px; background:var(--p); color:#000; border:none; border-radius:50px; cursor:pointer; font-weight:bold; z-index:1000; font-size:1.2rem; box-shadow:0 0 40px rgba(168,85,247,.8); }
+    .close:hover { transform:scale(1.1); }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h1 class="logo">Prestonz</h1>
+    <div class="tab active" data-tab="vault" onclick="openTab('vault')">Games Vault</div>
+    <div class="tab" data-tab="proxy" onclick="openTab('proxy')">Web Tunnel</div>
+    <div class="tab" data-tab="core" onclick="openTab('core')">Core Tools</div>
+  </div>
+
+  <div class="main">
+    <div id="vault" class="active">
+      <div class="search"><input type="text" placeholder="Search games..." oninput="search(this.value)"></div>
+      <div class="grid" id="games-grid"></div>
+    </div>
+
+    <div id="proxy" style="display:none">
+      <h2>Web Tunnel</h2>
+      <input type="text" id="url-input" placeholder="https://youtube.com" style="width:80%;padding:1rem;border-radius:50px;background:#000;color:#fff;border:2px solid var(--p);margin:1rem;">
+      <button onclick="go()" style="padding:1rem 2rem;background:var(--p);color:#000;border:none;border-radius:50px;cursor:pointer;">Go</button>
+      <iframe id="proxy-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals" style="width:100%;height:70vh;border-radius:18px;"></iframe>
+    </div>
+
+    <div id="core" style="display:none">
+      <h2>Core Tools</h2>
+      <p>Tab cloaker active — looks like Google Docs</p>
+    </div>
+
+    <div id="player">
+      <button class="close" onclick="back()">Back</button>
+      <iframe id="frame" sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const games = [
+      {name:"Retro Bowl",thumb:"https://images.launchbox-app.com/158956-clearlogo.png",file:"games/retro-bowl.html"},
+      {name:"Geometry Dash Lite",thumb:"https://e3334afd.cf-nate.pages.dev/0/g/geodash/game/splash.png",file:"games/geometry-dash-lite.html"},
+      {name:"Drive Mad",thumb:"https://cdn.jsdelivr.net/gh/genizy/dmad-poki@49b5ab6b987f5f3be58f9dae59c92e8fc1aab9b0/webapp/cover.jpg",file:"games/drive-mad.html"},
+      {name:"Crazy Cattle 3D",thumb:"https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.png",file:"games/crazy-cattle-3d.html"}
+    ];
+
+    function render() {
+      document.getElementById("games-grid").innerHTML = games.map(g => `
+        <div class="game" onclick="play('${g.file}')">
+          <img src="${g.thumb}" onerror="this.src='https://via.placeholder.com/300x200/333/999?text=${g.name}'">
+          <h3>${g.name}</h3>
+        </div>
+      `).join("");
+    }
+
+    function play(file) {
+      document.getElementById("frame").src = file;
+      document.getElementById("player").style.display = "block";
+    }
+
+    function back() {
+      document.getElementById("player").style.display = "none";
+      document.getElementById("frame").src = "";
+    }
+
+    function openTab(tabName) {
+      document.querySelectorAll("#vault, #proxy, #core").forEach(el => el.style.display = "none");
+      document.getElementById(tabName).style.display = "block";
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add("active");
+      if (tabName !== "player") back();
+    }
+
+    function go() {
+      let url = document.getElementById("url-input").value.trim() || "https://google.com";
+      url = url.startsWith("http") ? url : "https://" + url;
+      document.getElementById("proxy-frame").src = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+    }
+
+    function search(q) {
+      const filtered = games.filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
+      document.getElementById("games-grid").innerHTML = filtered.map(g => `
+        <div class="game" onclick="play('${g.file}')">
+          <img src="${g.thumb}" onerror="this.src='https://via.placeholder.com/300x200/333/999?text=${g.name}'">
+          <h3>${g.name}</h3>
+        </div>
+      `).join("");
+    }
+
+    render();
+  </script>
+</body>
+</html>
