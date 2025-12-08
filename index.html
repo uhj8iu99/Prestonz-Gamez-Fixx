@@ -17,19 +17,15 @@
   </div>
 
   <div class="main">
-
-    <!-- GAMES -->
     <div id="vault" class="page active">
       <input type="text" class="search" placeholder="Search games..." oninput="search(this.value)">
       <div class="grid" id="grid"></div>
     </div>
 
-    <!-- HELIOS PROXY (FULL STYLE) -->
     <div id="proxy" class="page">
-      <iframe id="proxyframe" src="data:text/html,<h1 style='color:#fff;text-align:center;margin-top:20%'>Loading Helios Proxy...</h1>"></iframe>
+      <iframe id="proxyframe" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
     </div>
 
-    <!-- CORE TOOLS -->
     <div id="core" class="page">
       <h2 style="color:#fff;text-align:center;margin:2rem">Tab Cloaker</h2>
       <div style="text-align:center">
@@ -41,7 +37,6 @@
       </div>
     </div>
 
-    <!-- FULLSCREEN PLAYER -->
     <div id="player">
       <button class="close" onclick="closeGame()">Back</button>
       <iframe id="gameFrame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>

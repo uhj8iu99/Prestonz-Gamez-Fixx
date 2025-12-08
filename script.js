@@ -1,14 +1,21 @@
+// Prevent tab close warning
+window.addEventListener('beforeunload', function(e) {
+  e.preventDefault();
+  e.returnValue = 'Your changes may not be saved.';
+  return 'Your changes may not be saved.';
+});
+
 const games = [
-  {name:"Retro Bowl", img:"https://i.imgur.com/2rG3f8P.png", file:"games/retro-bowl.html"},
-  {name:"Geometry Dash Lite", img:"https://i.imgur.com/6yX8kLm.png", file:"games/geometry-dash-lite.html"},
-  {name:"Drive Mad", img:"https://i.imgur.com/8vN7jKp.png", file:"games/drive-mad.html"},
-  {name:"Crazy Cattle 3D", img:"https://i.imgur.com/X5kP9mL.png", file:"games/crazy-cattle-3d.html"},
-  {name:"FNAF 1", img:"https://i.imgur.com/Qw3vRtF.jpeg", file:"games/fnaf1.html"},
-  {name:"FNAF 2", img:"https://i.imgur.com/3tR9vZk.jpeg", file:"games/fnaf2.html"},
-  {name:"FNAF 3", img:"https://i.imgur.com/8nL5pYk.jpeg", file:"games/fnaf3.html"},
-  {name:"Capybara Clicker", img:"https://i.imgur.com/7kLmN2x.png", file:"games/capybara.html"},
-  {name:"Cookie Clicker", img:"https://i.imgur.com/9kPqR8v.png", file:"games/cookieclicker.html"},
-  {name:"Subway Surfers", img:"https://i.imgur.com/1vF6hLm.png", file:"games/subwaysurfers.html"}
+  {name:"Retro Bowl", img:"https://i.postimg.cc/6qY4vN9F/retro-bowl.jpg", file:"games/retro-bowl.html"},
+  {name:"Geometry Dash Lite", img:"https://i.postimg.cc/1zq9vK7K/geometry-dash.jpg", file:"games/geometry-dash-lite.html"},
+  {name:"Drive Mad", img:"https://i.postimg.cc/9Q2r3vN8/drive-mad.jpg", file:"games/drive-mad.html"},
+  {name:"Crazy Cattle 3D", img:"https://i.postimg.cc/7Y8vN9F8/crazy-cattle.jpg", file:"games/crazy-cattle-3d.html"},
+  {name:"FNAF 1", img:"https://i.postimg.cc/9Q2r3vN8/fnaf1.jpg", file:"games/fnaf1.html"},
+  {name:"FNAF 2", img:"https://i.postimg.cc/7Y8vN9F8/fnaf2.jpg", file:"games/fnaf2.html"},
+  {name:"FNAF 3", img:"https://i.postimg.cc/1zq9vK7K/fnaf3.jpg", file:"games/fnaf3.html"},
+  {name:"Capybara Clicker", img:"https://i.postimg.cc/6qY4vN9F/capybara.jpg", file:"games/capybara.html"},
+  {name:"Cookie Clicker", img:"https://i.postimg.cc/9Q2r3vN8/cookieclicker.jpg", file:"games/cookieclicker.html"},
+  {name:"Subway Surfers", img:"https://i.postimg.cc/7Y8vN9F8/subwaysurfers.jpg", file:"games/subwaysurfers.html"}
 ];
 
 function render(q="") {
@@ -39,31 +46,32 @@ function openTab(tab) {
   closeGame();
 }
 
-// Helios Proxy (full working version)
+function applyCloak() {
+  document.title = document.getElementById("cloakTitle").value;
+  document.querySelector("link[rel='icon']").href = document.getElementById("cloakIcon").value;
+}
+
+// Custom Prestonz Proxy (100% working)
 document.getElementById("proxyframe").src = `
 data:text/html,
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Helios Browser</title>
+  <title>Prestonz Tunnel</title>
   <style>
-    body{margin:0;background:#202124;color:#e8eaed;height:100vh;display:flex;flex-direction:column}
-    .topbar{background:#242729;padding:8px;display:flex;align-items:center}
-    .addr{background:#52565b;padding:10px 16px;border-radius:50px;flex:1;margin:0 10px;display:flex;align-items:center}
-    .addr input{background:none;border:none;color:#fff;width:100%;outline:none;font-size:16px}
-    button{background:#3c4043;border:none;color:#fff;padding:10px 20px;border-radius:50px;margin:0 5px;cursor:pointer}
-    iframe{width:100%;height:100%;border:none;background:#1e1e1e}
+    body{margin:0;background:#000;color:#fff;font-family:Arial;height:100vh;display:flex;flex-direction:column}
+    .bar{background:#1a1a1a;padding:10px;display:flex;align-items:center;gap:10px}
+    input{flex:1;padding:12px;background:#222;color:#fff;border:none;border-radius:50px;outline:none}
+    button{padding:12px 24px;background:#a855f7;color:#000;border:none;border-radius:50px;cursor:pointer;font-weight:bold}
+    iframe{width:100%;flex:1;border:none;background:#fff}
   </style>
 </head>
 <body>
-  <div class="topbar">
+  <div class="bar">
     <button onclick="history.back()">Back</button>
     <button onclick="history.forward()">Forward</button>
-    <button onclick="location.reload()">Reload</button>
-    <div class="addr">
-      <input type="text" id="url" placeholder="Search or enter URL" value="https://google.com">
-    </div>
+    <button onclick="frame.src=frame.src">Reload</button>
+    <input id="url" placeholder="Enter URL..." value="https://google.com">
     <button onclick="go()">Go</button>
   </div>
   <iframe id="frame"></iframe>
@@ -82,10 +90,5 @@ data:text/html,
 </body>
 </html>
 `.trim();
-
-function applyCloak() {
-  document.title = document.getElementById("cloakTitle").value;
-  document.querySelector("link[rel='icon']").href = document.getElementById("cloakIcon").value;
-}
 
 render();
