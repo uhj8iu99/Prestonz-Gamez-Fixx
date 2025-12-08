@@ -1,18 +1,23 @@
 :root{--p:#a855f7;--pg:#e0aaff;--bg:#0f001a;--card:#1f003a;--side:#180030}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:#fff;font-family:'Segoe UI',sans-serif;display:flex;overflow:hidden;height:100vh}
-.sidebar{width:280px;background:var(--side);border-right:4px solid var(--p);position:fixed;height:100%;padding:2rem 1.5rem;z-index:10}
+.sidebar{width:280px;background:var(--side);border-right:4px solid var(--p);position:fixed;height:100%;padding:2rem 1.5rem;z-index:10;overflow-y:auto}
 .logo{font-size:3.2rem;text-align:center;background:linear-gradient(90deg,var(--p),var(--pg));-webkit-background-clip:text;color:transparent;margin-bottom:3rem;font-weight:900}
 .tab{padding:18px 24px;background:rgba(168,85,247,.15);border-left:5px solid transparent;border-radius:0 16px 16px 0;cursor:pointer;transition:.4s;margin:10px 0;font-weight:600}
 .tab:hover{background:rgba(168,85,247,.4);transform:translateX(10px)}
 .tab.active{background:var(--p);color:#000;border-left-color:#fff;font-weight:800}
-.main{margin-left:280px;padding:3rem;width:calc(100%-280px)}
+.main{margin-left:280px;padding:3rem;width:calc(100%-280px);overflow-y:auto;height:100vh}
+.page{display:none}
+.page.active{display:block}
 .search{width:90%;max-width:600px;padding:1.2rem;border-radius:50px;border:3px solid var(--p);background:#000;color:#fff;font-size:1.2rem;margin:2rem auto;display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2.5rem}
-.game{background:var(--card);border-radius:20px;overflow:hidden;cursor:pointer;transition:.5s;border:2px solid rgba(168,85,247,.3);box-shadow:0 12px 30px #000}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2rem;padding:1rem}
+.game{background:var(--card);border-radius:20px;overflow:hidden;cursor:pointer;transition:.5s;border:2px solid rgba(168,85,247,.3);aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:flex-end}
 .game:hover{transform:scale(1.07) translateY(-10px);box-shadow:0 25px 60px rgba(168,85,247,.8)}
-.game img{width:100%;height:200px;object-fit:cover;border-bottom:4px solid var(--p)}
-.game h3{padding:1.5rem;text-align:center;color:var(--pg);font-size:1.4rem;font-weight:700}
+.game img{width:100%;height:70%;object-fit:cover}
+.game h3{padding:1rem;text-align:center;color:var(--pg);font-size:1.3rem;background:rgba(0,0,0,0.6)}
 #player{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999;display:none}
-#gameFrame{width:100%;height:100%;border:none}
-.close{position:absolute;top:20px;left:20px;padding:16px 40px;background:var(--p);color:#000;border:none;border-radius:50px;cursor:pointer;font-weight:bold;z-index:1000;font-size:1.2rem}
+#gameFrame,#proxyframe{width:100%;height:calc(100vh - 100px);border:none;border-radius:16px;margin-top:1rem}
+.close{position:absolute;top:20px;left:20px;padding:16px 40px;background:var(--p);color:#000;border:none;border-radius:50px;cursor:pointer;font-weight:bold;z-index:1000}
+.proxy-input{display:flex;gap:10px;margin:2rem 0}
+.proxy-input input{flex:1;padding:1rem;border-radius:50px;background:#000;color:#fff;border:2px solid var(--p)}
+.proxy-input button{padding:1rem 2rem;background:var(--p);color:#000;border:none;border-radius:50px;cursor:pointer;font-weight:bold}
