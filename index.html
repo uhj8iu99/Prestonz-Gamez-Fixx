@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STEALTH CLOAKER</>
   <title>Google Docs</title>
   <link rel="icon" href="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico">
   <link rel="stylesheet" href="style.css">
@@ -25,29 +24,28 @@
       <div class="grid" id="grid"></div>
     </div>
 
-    <!-- PROXY -->
+    <!-- HELIOS PROXY (FULL STYLE) -->
     <div id="proxy" class="page">
-      <div class="proxy-bar">
-        <input type="text" id="url" placeholder="https://youtube.com" value="https://google.com">
-        <button onclick="go()">Go</button>
-      </div>
-      <iframe id="proxyframe" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
+      <iframe id="proxyframe" src="data:text/html,<h1 style='color:#fff;text-align:center;margin-top:20%'>Loading Helios Proxy...</h1>"></iframe>
     </div>
 
     <!-- CORE TOOLS -->
     <div id="core" class="page">
-      <h2>Tab Cloaker</h2>
-      <input type="text" id="cloakTitle" placeholder="Title" value="Google Docs">
-      <input type="text" id="cloakIcon" placeholder="Icon URL" value="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico">
-      <button onclick="applyCloak()">Apply Cloak</button>
+      <h2 style="color:#fff;text-align:center;margin:2rem">Tab Cloaker</h2>
+      <div style="text-align:center">
+        <input type="text" id="cloakTitle" placeholder="Title" value="Google Docs" style="padding:12px;width:300px;border-radius:50px;background:#000;color:#fff;border:2px solid #a855f7;margin:10px">
+        <br>
+        <input type="text" id="cloakIcon" placeholder="Icon URL" value="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" style="padding:12px;width:300px;border-radius:50px;background:#000;color:#fff;border:2px solid #a855f7;margin:10px">
+        <br>
+        <button onclick="applyCloak()" style="padding:14px 40px;background:#a855f7;color:#000;border:none;border-radius:50px;font-weight:bold;margin-top:20px;cursor:pointer">Apply Cloak</button>
+      </div>
     </div>
 
-    <!-- FULLSCREEN GAME PLAYER -->
+    <!-- FULLSCREEN PLAYER -->
     <div id="player">
       <button class="close" onclick="closeGame()">Back</button>
       <iframe id="gameFrame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
     </div>
-
   </div>
 
   <script src="script.js"></script>
