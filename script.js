@@ -1,21 +1,21 @@
 const games = [
-  {name:"Retro Bowl", img:"https://images.launchbox-app.com/158956-clearlogo.png", file:"games/retro-bowl.html"},
-  {name:"Geometry Dash Lite", img:"https://e3334afd.cf-nate.pages.dev/0/g/geodash/game/splash.png", file:"games/geometry-dash-lite.html"},
-  {name:"Drive Mad", img:"https://cdn.jsdelivr.net/gh/genizy/dmad-poki@49b5ab6b987f5f3be58f9dae59c92e8fc1aab9b0/webapp/cover.jpg", file:"games/drive-mad.html"},
-  {name:"Crazy Cattle 3D", img:"https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.png", file:"games/crazy-cattle-3d.html"},
-  {name:"FNAF 1", img:"https://i.imgur.com/4z4p1nM.png", file:"games/fnaf1.html"},
-  {name:"FNAF 2", img:"https://i.imgur.com/9n2fQ0J.png", file:"games/fnaf2.html"},
-  {name:"FNAF 3", img:"https://i.imgur.com/Kp9aV3f.png", file:"games/fnaf3.html"},
-  {name:"Capybara Clicker", img:"https://i.imgur.com/2kL5n9F.png", file:"games/capybara.html"},
-  {name:"Cookie Clicker", img:"https://i.imgur.com/3Qw2v9x.png", file:"games/cookieclicker.html"},
-  {name:"Subway Surfers", img:"https://i.imgur.com/Vj8kL2p.png", file:"games/subwaysurfers.html"}
+  {name:"Retro Bowl", img:"https://i.imgur.com/2rG3f8P.png", file:"games/retro-bowl.html"},
+  {name:"Geometry Dash Lite", img:"https://i.imgur.com/6yX8kLm.png", file:"games/geometry-dash-lite.html"},
+  {name:"Drive Mad", img:"https://i.imgur.com/8vN7jKp.png", file:"games/drive-mad.html"},
+  {name:"Crazy Cattle 3D", img:"https://i.imgur.com/X5kP9mL.png", file:"games/crazy-cattle-3d.html"},
+  {name:"FNAF 1", img:"https://i.imgur.com/Qw3vRtF.jpeg", file:"games/fnaf1.html"},
+  {name:"FNAF 2", img:"https://i.imgur.com/3tR9vZk.jpeg", file:"games/fnaf2.html"},
+  {name:"FNAF 3", img:"https://i.imgur.com/8nL5pYk.jpeg", file:"games/fnaf3.html"},
+  {name:"Capybara Clicker", img:"https://i.imgur.com/7kLmN2x.png", file:"games/capybara.html"},
+  {name:"Cookie Clicker", img:"https://i.imgur.com/9kPqR8v.png", file:"games/cookieclicker.html"},
+  {name:"Subway Surfers", img:"https://i.imgur.com/1vF6hLm.png", file:"games/subwaysurfers.html"}
 ];
 
-function render(filter="") {
-  const filtered = games.filter(g => g.name.toLowerCase().includes(filter.toLowerCase()));
+function render(query = "") {
+  const filtered = games.filter(g => g.name.toLowerCase().includes(query.toLowerCase()));
   document.getElementById("grid").innerHTML = filtered.map(g => `
     <div class="game" onclick="play('${g.file}')">
-      <img src="${g.img}" onerror="this.src='https://via.placeholder.com/250/333/fff?text=${g.name}'">
+      <img src="${g.img}" onerror="this.src='https://via.placeholder.com/140/333/fff?text=${g.name}'">
       <h3>${g.name}</h3>
     </div>
   `).join("");
@@ -35,22 +35,24 @@ function openTab(tab) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById(tab).classList.add("active");
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
+  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add("active");
   closeGame();
 }
 
 function go() {
-  let url = document.getElementById("url").value.trim() || "https://google.com";
+  let url = document.getElementById("url").value.trim();
+  if (!url) url = "https://google.com";
   if (!url.startsWith("http")) url = "https://" + url;
   document.getElementById("proxyframe").src = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
 }
 
 function applyCloak() {
   document.title = document.getElementById("cloakTitle").value;
-  const link = document.querySelector("link[rel='icon']") || document.createElement("link");
+  const link = document.createElement("link");
   link.rel = "icon";
   link.href = document.getElementById("cloakIcon").value;
   document.head.appendChild(link);
 }
 
+// Init
 render();
