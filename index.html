@@ -11,9 +11,9 @@
 
   <div class="sidebar">
     <h1 class="logo">Prestonz</h1>
-    <div class="tab active" onclick="openTab('vault')">Games Vault</div>
-    <div class="tab" onclick="openTab('proxy')">Web Tunnel</div>
-    <div class="tab" onclick="openTab('core')">Core Tools</div>
+    <div class="tab active" data-tab="vault">Games Vault</div>
+    <div class="tab" data-tab="proxy">Web Tunnel</div>
+    <div class="tab" data-tab="core">Core Tools</div>
   </div>
 
   <div class="main">
@@ -22,13 +22,16 @@
       <div class="grid" id="grid"></div>
     </div>
 
-    <div id="proxy" class="page"><iframe id="proxyframe"></iframe></div>
+    <div id="proxy" class="page">
+      <iframe id="proxyframe" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
+    </div>
+
     <div id="core" class="page">
       <h2 style="color:#fff;text-align:center;margin:3rem">Tab Cloaker</h2>
       <div style="text-align:center">
-        <input id="cloakTitle" value="Google Docs" style="width:300px;padding:12px;border-radius:50px;background:#000;color:#fff;border:3px solid #a855f7;margin:10px">
+        <input id="cloakTitle" value="Google Docs" style="width:300px;padding:14px;border-radius:50px;background:#000;color:#fff;border:3px solid #a855f7;margin:10px">
         <br>
-        <button onclick="applyCloak()" style="padding:14px 40px;background:#a855f7;color:#000;border:none;border-radius:50px;font-weight:bold;margin-top:20px">Apply Cloak</button>
+        <button onclick="applyCloak()" style="padding:16px 40px;background:#a855f7;color:#000;border:none;border-radius:50px;font-weight:bold">Apply</button>
       </div>
     </div>
 
