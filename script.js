@@ -11,15 +11,14 @@ const games = [
   {name:"Cookie Clicker", img:"https://i.postimg.cc/9kPqR8v/cookieclicker.jpg", file:"games/cookieclicker.html"},
   {name:"Subway Surfers", img:"https://i.postimg.cc/1vF6hLm/subwaysurfers.jpg", file:"games/subwaysurfers.html"},
   {name:"Crazy Cattle 3D", img:"https://i.postimg.cc/X5kP9mL/crazycattle.jpg", file:"games/crazy-cattle-3d.html"}
-  // Add more in this exact order
 ];
 
 function render(q="") {
   const f = games.filter(g=>g.name.toLowerCase().includes(q.toLowerCase()));
   document.getElementById("grid").innerHTML = f.map(g=>`
     <div class="game" onclick="play('${g.file}')">
-      <img src="${g.img}" onerror="this.src='https://via.placeholder.com/160/222/fff?text=${g.name}'">
-      <div class="info"><h3>${g.name}</h3></div>
+      <img src="${g.img}" onerror="this.src='https://via.placeholder.com/180/333/fff?text=${g.name}'">
+      <h3>${g.name}</h3>
     </div>
   `).join("");
 }
@@ -38,5 +37,22 @@ function openTab(t) {
 function applyCloak() {
   document.title = document.getElementById("cloakTitle").value;
 }
+
+// Proxy
+document.getElementById("proxyframe").src = `data:text/html,
+<!DOCTYPE html><html><head><style>body{margin:0;background:#000;color:#fff;font-family:Arial;height:100vh;display:flex;flex-direction:column}
+.bar{background:#1a1a1a;padding:10px;display:flex;gap:10px}
+input,button{padding:12px;flex:1;border:none;border-radius:50px}
+input{background:#222;color:#fff;outline:none}
+button{background:#a855f7;color:#000;cursor:pointer;font-weight:bold}
+iframe{flex:1;border:none}</style></head>
+<body><div class="bar">
+<input id="u" placeholder="Enter URL" value="https://google.com">
+<button onclick="go()">Go</button></div>
+<iframe id="f"></iframe>
+<script>
+function go(){let u=document.getElementById('u').value;if(!u.startsWith('http'))u='https://'+u;document.getElementById('f').src='https://api.allorigins.win/raw?url='+encodeURIComponent(u);}
+go();
+</script></body></html>`.trim();
 
 render();
